@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 140px;
+  background-color: rgba(0, 0, 0, 0.09);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+}
+
+.infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.slideSection {
+  width: 80%;
+}

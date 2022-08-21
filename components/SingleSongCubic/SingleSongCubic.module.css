@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 110px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.songCover {
+  width: 90px;
+  height: 90px;
+  position: relative;
+}
