@@ -20,8 +20,8 @@ const categories = [
   },
   {
     id: 3,
-    name: "Classic",
-    background: cat3,
+    name: "Jazz",
+    background: cat1,
   },
 ];
 

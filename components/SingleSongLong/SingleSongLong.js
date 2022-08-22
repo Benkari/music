@@ -25,7 +25,7 @@ function SingleSongLong({ album, index, isFav }) {
         </Typography>
         <div className={styles.coverImage}>
           <Image
-            src={album.img}
+            src={album.img ? album.img : "/images/albumPlaceholder.png"}
             layout="fill"
             objectFit="cover"
             alt="largeImg"

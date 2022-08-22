@@ -14,7 +14,7 @@ export const getMusician = async (searchText) => {
     .catch(function (e) {
       console.log(e);
     });
-  opt = opt.artists.map((artist) => ({
+  opt = opt?.artists.map((artist) => ({
     id: artist.id,
     name: artist.name,
     score: artist.score,
@@ -44,29 +44,31 @@ export const getOnesAlbums = async (id) => {
       console.log(e);
     });
 
-  opt = opt["release-groups"].map(async (album) => {
-    var fetchedImg = "";
-    await axios
-      .get(`https://coverartarchive.org/release-group/${album.id}`, {
-        headers: {
-          "User-Agent": "UniProject/1.0 (benjamin.karimaei@gmail.com)",
-        },
-      })
-      .then((res) => {
-        return (fetchedImg = res.data.images[0].thumbnails.small);
-      })
-      .catch(function (e) {
-        console.log(e);
-      });
-    return {
-      id: album.id,
-      title: album.title,
-      img: fetchedImg,
-      primaryType: album["primary-type"],
-      releaseDate: album["first-release-date"],
-    };
-  });
+  if (opt) {
+    opt = opt["release-groups"]?.map(async (album) => {
+      var fetchedImg = "";
+      await axios
+        .get(`https://coverartarchive.org/release-group/${album.id}`, {
+          headers: {
+            "User-Agent": "UniProject/1.0 (benjamin.karimaei@gmail.com)",
+          },
+        })
+        .then((res) => {
+          return (fetchedImg = res.data.images[0]?.thumbnails.small);
+        })
+        .catch(function (e) {
+          console.log(e);
+        });
+      return {
+        id: album.id,
+        title: album.title,
+        img: fetchedImg,
+        primaryType: album["primary-type"],
+        releaseDate: album["first-release-date"],
+      };
+    });
+    var results = await Promise.all(opt);
+  }
 
-  var results = await Promise.all(opt);
   return results;
 };

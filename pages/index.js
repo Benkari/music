@@ -12,6 +12,7 @@ import { getFromStorage } from "../functions/addToStorage";
 
 export default function Home({ drake, omer, sofi }) {
   const [favList, setFavList] = React.useState([]);
+  const [mainScreenDimmed, setMainScreenDimmed] = React.useState(false);
 
   React.useEffect(() => {
     const favArrayFromStorage = getFromStorage();
@@ -19,7 +20,9 @@ export default function Home({ drake, omer, sofi }) {
   }, []);
 
   return (
-    <FavListContext.Provider value={{ favList, setFavList }}>
+    <FavListContext.Provider
+      value={{ favList, setFavList, mainScreenDimmed, setMainScreenDimmed }}
+    >
       <ThemeProvider theme={theme}>
         <div>
           <Head>

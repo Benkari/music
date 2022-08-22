@@ -5,8 +5,10 @@ import Header from "../Header/Header";
 import Recent from "../Recent/Recent";
 import Trending from "../Trending/Trending";
 import { Typography } from "@mui/material";
+import FavListContext from "../../FavListContext";
 
 function MainSection({ drake, sofi }) {
+  const { mainScreenDimmed } = React.useContext(FavListContext);
   return (
     <div className={styles.container}>
       {/* Header */}
@@ -20,7 +22,6 @@ function MainSection({ drake, sofi }) {
           <Categories />
         </div>
       </div>
-
       {/* Trending */}
       <div className={styles.trendingSection}>
         <Typography>Trending</Typography>
@@ -28,7 +29,6 @@ function MainSection({ drake, sofi }) {
           <Trending drake={drake} />
         </div>
       </div>
-
       {/* Recent Section */}
       <div className={styles.recentSection}>
         <Typography className={styles.recentSectionTitle}>
@@ -38,6 +38,7 @@ function MainSection({ drake, sofi }) {
           <Recent sofi={sofi} />
         </div>
       </div>
+      {mainScreenDimmed && <div className={styles.mainScreenDimmer} />}{" "}
     </div>
   );
 }
