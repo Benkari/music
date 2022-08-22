@@ -5,21 +5,16 @@ import axios from "axios";
 export const getMusician = async (searchText) => {
   var opt;
   await axios
-    .get(`https://musicbrainz.org/ws/2/artist/?query=${searchText}&fmt=json`, {
-      headers: { "User-Agent": "UniProject/1.0 (benjamin.karimaei@gmail.com)" },
-    })
+    .get(
+      `  https://music-backend-theta.herokuapp.com/api/get_artists?name=${searchText}`
+    )
     .then((res) => {
       opt = res.data;
     })
     .catch(function (e) {
       console.log(e);
     });
-  opt = opt?.artists.map((artist) => ({
-    id: artist.id,
-    name: artist.name,
-    score: artist.score,
-    country: artist?.area?.name,
-  }));
+
   return opt;
 };
 
@@ -29,14 +24,7 @@ export const getMusician = async (searchText) => {
 export const getOnesAlbums = async (id) => {
   var opt;
   await axios
-    .get(
-      `https://musicbrainz.org/ws/2/artist/${id}?inc=release-groups&fmt=json`,
-      {
-        headers: {
-          "User-Agent": "UniProject/1.0 (benjamin.karimaei@gmail.com)",
-        },
-      }
-    )
+    .get(`  https://music-backend-theta.herokuapp.com/api/get_albums?id=${id}`)
     .then((res) => {
       opt = res.data;
     })
@@ -44,31 +32,5 @@ export const getOnesAlbums = async (id) => {
       console.log(e);
     });
 
-  if (opt) {
-    opt = opt["release-groups"]?.map(async (album) => {
-      var fetchedImg = "";
-      await axios
-        .get(`https://coverartarchive.org/release-group/${album.id}`, {
-          headers: {
-            "User-Agent": "UniProject/1.0 (benjamin.karimaei@gmail.com)",
-          },
-        })
-        .then((res) => {
-          return (fetchedImg = res.data.images[0]?.thumbnails.small);
-        })
-        .catch(function (e) {
-          console.log(e);
-        });
-      return {
-        id: album.id,
-        title: album.title,
-        img: fetchedImg,
-        primaryType: album["primary-type"],
-        releaseDate: album["first-release-date"],
-      };
-    });
-    var results = await Promise.all(opt);
-  }
-
-  return results;
+  return opt;
 };

@@ -6,12 +6,6 @@ import { getMusician, getOnesAlbums } from "../../apiRequests/getMusican";
 import { CircularProgress } from "@mui/material";
 import FavListContext from "../../FavListContext";
 
-const album = {
-  title: "Views",
-  img: "",
-  primaryType: "Album",
-};
-
 const useClickOutside = (handler) => {
   const domNodeRef = React.useRef();
 
